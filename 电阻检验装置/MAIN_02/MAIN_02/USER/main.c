@@ -6,8 +6,13 @@
 #include "FreeRTOS.h"
 #include "task.h"
 #include "adc.h"
-#include "myiic.h"
-/*
+#include "Receive_task.h"
+#include "Send_task.h"
+#include "Task_control.h"
+#include "Check_task.h"
+
+555
+/*#include "myiic.h"
 ************************************************
 电阻检验主控板程序02
 作者:李竞帆
@@ -61,17 +66,17 @@ int main(void)
 	RCC_Configuration();
 	NVIC_Configuration();
 	iic2_init();
-	delay_init();	    				//延时函数初始化	 
-	uart_init(115200);					//初始化串口
+	delay_init();	    					 
+	uart_init(115200);					
 	
 
 	//创建开始任务
-    xTaskCreate((TaskFunction_t )start_task,            //任务函数
-                (const char*    )"start_task",          //任务名称
-                (uint16_t       )START_STK_SIZE,        //任务堆栈大小
-                (void*          )NULL,                  //传递给任务函数的参数
-                (UBaseType_t    )START_TASK_PRIO,       //任务优先级
-                (TaskHandle_t*  )&StartTask_Handler);   //任务句柄              
+    xTaskCreate((TaskFunction_t )start_task,           
+                (const char*    )"start_task",         
+                (uint16_t       )START_STK_SIZE,       
+                (void*          )NULL,                 
+                (UBaseType_t    )START_TASK_PRIO,       
+                (TaskHandle_t*  )&StartTask_Handler);   
     vTaskStartScheduler();          //开启任务调度
 }
 
@@ -130,11 +135,13 @@ void Send_task(void *pvParameters)
 
 
 void Check_task(void *pvParameters)
-{
+{    
 
+	Check_init();
+	
 	while(1)
 	{
-
+		checkalldata();
         vTaskDelay(1000);                           //延时1s，也就是1000个时钟节拍	
 	}
 }
