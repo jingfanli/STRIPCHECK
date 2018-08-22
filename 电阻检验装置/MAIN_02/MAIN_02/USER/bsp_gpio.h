@@ -6,12 +6,22 @@
 
 #define m_gpiocallbacknum   16;
 
-
+typedef enum
+{
+  Gpio_Ain,
+  Gpio_flout_in,
+  Gpio_pullup_in,
+  Gpio_pulldown_in,
+  Gpio_out_pp,
+  Gpio_out_od
+	
+}Gpio_ioconfig;
 
 typedef enum
 {
   Gpio_pinset,
-  Gpio_pullset,
+  Gpio_out,
+  Gpio_in,
   Gpio_pinread,
   Gpio_pininterrupt,
   Gpio_pincallback
@@ -38,7 +48,7 @@ u8 Gpio_setconfig
 	u32* gpiobase
 );
 
-
+u8 Gpio_interrupt(uint8 pin);
 
 
 
