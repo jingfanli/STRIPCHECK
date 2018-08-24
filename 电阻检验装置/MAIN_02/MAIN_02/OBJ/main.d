@@ -34,7 +34,8 @@
 ..\obj\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 ..\obj\main.o: ..\HARDWARE\TIMER\timer.h
 ..\obj\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-..\obj\main.o: ..\FreeRTOS\include\FreeRTOS.h
+..\obj\main.o: APP.h
+..\obj\main.o: ..\FreeRTOS\include\freertos.h
 ..\obj\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 ..\obj\main.o: ..\FreeRTOS\include\FreeRTOSConfig.h
 ..\obj\main.o: ..\FreeRTOS\include\projdefs.h
@@ -44,5 +45,6 @@
 ..\obj\main.o: ..\FreeRTOS\include\mpu_wrappers.h
 ..\obj\main.o: ..\FreeRTOS\include\task.h
 ..\obj\main.o: ..\FreeRTOS\include\list.h
-..\obj\main.o: ..\HARDWARE\ADC\adc.h
-..\obj\main.o: ..\HARDWARE\IIC\myiic.h
+..\obj\main.o: ..\FreeRTOS\include\queue.h
+..\obj\main.o: Bsp_gpio.h
+..\obj\main.o: type.h

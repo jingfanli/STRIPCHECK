@@ -66,7 +66,9 @@ u16 Get_Adc_Average(u8 ch,u8 times)
 		delay_ms(5);
 	}
 	return temp_val/times;
-} 	 
+} 	
+
+/*
 
 u16 DMA_ADCTOMEM( u32  u16_sourceadd,
 	                        u32  u16_destadd,
@@ -82,7 +84,7 @@ u16 DMA_ADCTOMEM( u32  u16_sourceadd,
 	
 }
 
-
+*/
 
 
 

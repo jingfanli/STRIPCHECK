@@ -131,6 +131,8 @@ u8 IIC1_Read_Byte(unsigned char ack)
         IIC_Ack(); //·¢ËÍACK   
     return receive;
 }
+
+/*
 u16 IIC2_Write
 (
 	u16 ui_Address,
@@ -146,7 +148,7 @@ u16 IIC2_Write
 	{
 		m_u16_Timeout = 0;
 
-		/*!< While the bus is busy */
+
 		while ((I2C2->SR2 & I2C_SR2_BUSY) != 0)
 		{
 			m_u16_Timeout++;
@@ -157,11 +159,11 @@ u16 IIC2_Write
 			}
 		}
 
-		/*!< Send START condition */
+
 		I2C2->CR1 |= I2C_CR1_START;
 		m_u16_Timeout = 0;
 
-		/*!< Test on EV5 and clear it */
+
 		while (((I2C2->SR1 & I2C_SR1_SB) != I2C_SR1_SB) ||
 			((I2C2->SR2 & (I2C_SR2_MSL | I2C_SR2_BUSY)) != 
 			(I2C_SR2_MSL | I2C_SR2_BUSY)))
@@ -174,11 +176,11 @@ u16 IIC2_Write
 			}
 		}
 
-		/*!< Send EEPROM address for write */
+
 		I2C2->DR = EEPROM_DEVICE_ADDRESS & ~(0x01);
 		m_u16_Timeout = 0;
 
-		/*!< Test on EV6 and clear it */
+	
 		while (((I2C1->SR1 & (I2C_SR1_ADDR | I2C_SR1_TXE)) != 
 			(I2C_SR1_ADDR | I2C_SR1_TXE)) ||
 			((I2C1->SR3 & (I2C_SR3_MSL | I2C_SR3_BUSY | I2C_SR3_TRA)) != 
@@ -192,11 +194,11 @@ u16 IIC2_Write
 			}
 		}
 
-		/*!< Send the address to be written */
+
 		I2C1->DR = (uint8)ui_Address;
 		m_u16_Timeout = 0;
 
-		/*!< Test on EV8 and clear it */
+	
 		while (((I2C1->SR1 & (I2C_SR1_BTF | I2C_SR1_TXE)) != 
 			(I2C_SR1_BTF | I2C_SR1_TXE)) ||
 			((I2C1->SR3 & (I2C_SR3_MSL | I2C_SR3_BUSY | I2C_SR3_TRA)) != 
@@ -215,11 +217,10 @@ u16 IIC2_Write
 
 		while (ui_PageLength > 0)
 		{
-			/*!< Send the byte to be written */
+		
 			I2C1->DR = *u8p_Data;
 			m_u16_Timeout = 0;
 
-			/*!< Test on EV8 and clear it */
 			while (((I2C1->SR1 & (I2C_SR1_BTF | I2C_SR1_TXE)) != 
 				(I2C_SR1_BTF | I2C_SR1_TXE)) ||
 				((I2C1->SR3 & (I2C_SR3_MSL | I2C_SR3_BUSY | I2C_SR3_TRA)) != 
@@ -237,7 +238,7 @@ u16 IIC2_Write
 			u8p_Data++;
 		}
 
-		/*!< Send STOP condition */
+
 		I2C1->CR2 |= I2C_CR2_STOP;
 
 		if (ui_Length > EEPROM_PAGE_SIZE)
@@ -258,7 +259,7 @@ u16 IIC2_Write
 	return FUNCTION_OK;
 }
 
-
+*/
 
 
 

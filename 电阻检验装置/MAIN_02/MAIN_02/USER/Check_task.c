@@ -1,7 +1,7 @@
 #include "Check_task.h"
 #include "adc.h"
 #include "Dma.h"
-#include "Bsp_gpio.h"
+
 
 #define LED_B_GPIOPORT       GPIOB
 #define LED_B_PGIOPIN        GPIO_Pin_12
@@ -122,12 +122,13 @@ u8 Systemgpio_init()
 }
 
 static u8 Check_gpio_init();
+/*
 static u8 Check_oneunit
 (
 u16 channel,
 u16* 
 )
-
+*/
 
 u8 Check_init()
 {

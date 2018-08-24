@@ -1,6 +1,6 @@
 #ifndef _TYPE_H_
 #define _TYPE_H_
-
+#include "stm32f10x.h"
 
 //Constant define
 
@@ -51,10 +51,6 @@ typedef signed long	long	sint64;
 typedef float				float32;
 typedef double				float64;
 
-typedef enum 
-{
-	FUNCTION_OK = 1,
-	FUNCTION_FAIL = 0
-} function_return;
+
 
 #endif

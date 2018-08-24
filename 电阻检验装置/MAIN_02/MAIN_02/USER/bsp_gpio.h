@@ -1,10 +1,20 @@
 #ifndef __BSP_GPIO_H
 #define __BSP_GPIO_H
 
-#include "stm32f10x_gpio.h"
+
+
+
+
+#include "stm32f10x.h"
+
 #include "type.h"
 
-#define m_gpiocallbacknum   16;
+#define  Bsp_gpio_test        1;
+
+
+
+
+
 
 typedef enum
 {
@@ -35,7 +45,7 @@ typedef struct
 }gpio_callback;
 
 
-static gpio_callback m_gpiocallback[m_gpiocallbacknum]={0};
+
 
 
 u8 Systemgpio_init(void);
@@ -43,13 +53,19 @@ u8 Systemgpio_init(void);
 	
 u8 Gpio_setconfig
 (
-	u16* set_mode,
-	u16* set_value
-	u32* gpiobase
+	u16 set_mode,
+	u16* set_value,
+	u16 PINPORT
 );
 
 u8 Gpio_interrupt(uint8 pin);
 
+
+/*
+ #if Bsp_gpio_test == 1
+//void  Gpio_test(void);
+#endif
+*/
 
 
 #endif

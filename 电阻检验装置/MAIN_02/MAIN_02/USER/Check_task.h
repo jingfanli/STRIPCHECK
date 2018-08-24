@@ -1,11 +1,8 @@
 #ifndef __CHECK_TASK_H
 #define  __CHECK_TASK_H
+#include "Bsp_gpio.h"
 
-typedef enum
-{
-	
-	
-}Point_value;
+
 
 typedef struct
 {
@@ -21,6 +18,7 @@ typedef struct
 	
 }Check_data;
 
-u8 Check_init();
-u8 checkalldata();
+u8 Check_init(void);
+u8 checkalldata(void);
 #endif
+

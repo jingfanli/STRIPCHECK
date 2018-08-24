@@ -3,10 +3,14 @@
 #include "usart.h"
 #include "timer.h"
 #include "string.h"
-#include "FreeRTOS.h"
-#include "task.h"
+//#include "FreeRTOS.h"
+//#include "task.h"
+//#include "queue.h"
 #include "APP.h"
 
+
+void NVIC_Configuration(void);
+void RCC_Configuration(void);
 /*#include "myiic.h"
 ************************************************
 电阻检验主控板程序02
@@ -14,14 +18,15 @@
 微泰医疗有限公司
 
 ************************************************/
+
 int main(void)
 {
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);//设置系统中断优先级分组4
 	RCC_Configuration();
 	NVIC_Configuration();
-	iic2_init();
+	//iic2_init();
 	delay_init();	    					 
-	uart_init(115200);					
+	//uart_init(115200);					
 	
 
 	//创建开始任务
@@ -39,9 +44,9 @@ void start_task(void *pvParameters)
 {
     taskENTER_CRITICAL();           //进入临界区
 
-    Check_Queue=xQueueCreate(Check_num,sizeof(u8));    
-    Send_Queue=xQueueCreate(Send_num,sizeof(u8)); 
-	Receive_Queue=xQueueCreate(Receive_num,sizeof(u8));
+    Check_Queue = xQueueCreate(Check_num,sizeof(u8));    
+    Send_Queue = xQueueCreate(Send_num,sizeof(u8)); 
+		Receive_Queue = xQueueCreate(Receive_num,sizeof(u8));
     xTaskCreate((TaskFunction_t )Receive_task,             
                 (const char*    )"Receive_task",           
                 (uint16_t       )Receive_STK_SIZE,        
@@ -78,46 +83,7 @@ void NVIC_Configuration(void)
   NVIC_Init(&NVIC_InitStructure);
 }
 
-void GPIO_Configuration(void)
-{
-  GPIO_InitTypeDef GPIO_InitStructure;
 
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1|GPIO_Pin_2|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5|GPIO_Pin_6|GPIO_Pin_7;
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
-  GPIO_Init(GPIOA , &GPIO_InitStructure);
- 
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0|GPIO_Pin_1;
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
-  GPIO_Init(GPIOB , &GPIO_InitStructure);
-
-  
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_2|GPIO_Pin_3|GPIO_Pin_4;
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
-  GPIO_Init(GPIOC , &GPIO_InitStructure);
-  //AD通道GPIO配置
-
-  GPIO_InitStructure.GPIO_Pin = ;
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
-  GPIO_Init(GPIOA , &GPIO_InitStructure);
-
-  
-
-  
-}
-
-u8 iic2_init(void)
-{
-	I2C_InitTypeDef I2C_InitStructure;
-	I2C_InitStructure.I2C_Mode = I2C_Mode_I2C;
-	I2C_InitStructure.I2C_DutyCycle = I2C_DutyCycle_2;
-	I2C_InitStructure.I2C_OwnAddress1 = 0x55;
-	I2C_InitStructure.I2C_Ack = I2C_Ack_Enable;
-	I2C_InitStructure.I2C_AcknowledgedAddress = I2C_AcknowledgedAddress_7bit;
-	I2C_InitStructure.I2C_ClockSpeed = 200000;
-	I2C_Init(I2C2,&I2C_InitStructure);
-	I2C_ITConfig(I2C2,I2C_IT_EVT|I2C_IT_BUF,ENABLE);
-	I2C_Cmd(I2C2,ENABLE);
-}
 void RCC_Configuration(void)
 {
   /* 定义枚举类型变量 HSEStartUpStatus */
@@ -153,8 +119,8 @@ void RCC_Configuration(void)
   while(RCC_GetSYSCLKSource() != 0x08);
   }
   /* 打开 APB2 总线上的 GPIOA 时钟*/
-  RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA|RCC_APB2Periph_GPIOB|RCC_APB
-  2Periph_USART1, ENABLE);
+  RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA|RCC_APB2Periph_GPIOB|
+	RCC_APB2Periph_USART1, ENABLE);
   //RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1, ENABLE);
   RCC_APB1PeriphClockCmd(RCC_APB1Periph_I2C1|RCC_APB1Periph_I2C2,ENABLE);
 

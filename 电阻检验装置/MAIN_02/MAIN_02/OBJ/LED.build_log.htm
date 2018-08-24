@@ -21,17 +21,81 @@ Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.1.0
 Dialog DLL:        TARMSTM.DLL   
  
 <h2>Project:</h2>
-F:\Data\电阻检验装置\MAIN_02\MAIN_02\USER\FreeRTOS.uvprojx
-Project File Date:  06/29/2018
+F:\git\STRIPCHECK\电阻检验装置\MAIN_02\MAIN_02\USER\FreeRTOS.uvprojx
+Project File Date:  08/23/2018
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 5 (build 528)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'FreeRTOS'
-compiling stm32f10x_dma.c...
-linking...
-Program Size: Code=18488 RO-data=336 RW-data=204 ZI-data=23156  
-FromELF: creating hex file...
-"..\OBJ\LED.axf" - 0 Error(s), 0 Warning(s).
+compiling main.c...
+compiling APP.c...
+compiling bsp_gpio.c...
+bsp_gpio.c(18): error:  #17: expected a "]"
+  static gpio_callback m_gpiocallback[
+_gpiocallbacknum] = {0};
+bsp_gpio.c(18): error:  #169: expected a declaration
+  static gpio_callback m_gpiocallback[
+_gpiocallbacknum] = {0};
+bsp_gpio.c(40): error:  #57: this operator is not allowed in a constant expression
+  {(1 << 0), (1 << 1), (1 << 2), (1 << 3), (1 << 4), (1 << 5), (1 << 6), (1 << 7),(1<<8,),
+bsp_gpio.c(40): error:  #29: expected an expression
+  {(1 << 0), (1 << 1), (1 << 2), (1 << 3), (1 << 4), (1 << 5), (1 << 6), (1 << 7),(1<<8,),
+bsp_gpio.c(136): warning:  #111-D: statement is unreachable
+                                break;
+bsp_gpio.c(139): error:  #1182: a declaration cannot have a label
+                                GPIO_InitTypeDef GPIO_INITSTRUCT;
+bsp_gpio.c(142): error:  #53: expected a ":"
+                                                case 
+pio_out_pp:
+bsp_gpio.c(149): error:  #2706: case label value has already appeared in this switch at line 142
+                                                case 
+pio_out_od:
+bsp_gpio.c(149): error:  #53: expected a ":"
+                                                case 
+pio_out_od:
+bsp_gpio.c(155): error:  #29: expected an expression
+                                                case default:
+bsp_gpio.c(189): error:  #29: expected an expression
+                                                case default:
+bsp_gpio.c(196): warning:  #111-D: statement is unreachable
+                                break;
+bsp_gpio.c(203): error:  #127: expected a statement
+                                else 
+bsp_gpio.c(210): error:  #53: expected a ":"
+                                Gpio_setcallback(port,pin,value);
+bsp_gpio.c(213): warning:  #12-D: parsing restarts here after previous syntax error
+                        default:
+bsp_gpio.c(268): error:  #29: expected an expression
+         Gpio_table[port]->BSRR | = 0xffff;
+bsp_gpio.c(372): error:  #513: a value of type "gpio_callback *" cannot be assigned to an entity of type "gpio_callback"
+                        m_gpiocallback[pin] =(gpio_callback*)value;
+bsp_gpio.c(386): error:  #44: expression must have pointer type
+        if((m_gpiocallback[pin]->fp_gpio_interrupt)!=0);
+bsp_gpio.c(388): error:  #44: expression must have pointer type
+                m_gpiocallback[pin]->fp_gpio_interrupt();
+bsp_gpio.c(395): warning:  #940-D: missing return statement at end of non-void function "Gpio_interrupt" 
+  }
+bsp_gpio.c(398): error:  #14-D: extra text after expected end of preprocessing directive
+  #if 
+sp_gpio_test == 1
+bsp_gpio.c(402): error:  #165: too few arguments in function call
+        Gpio_setconfig(
+pio_out_pp,&set_value,0xC2);
+bsp_gpio.c(402): error:  #18: expected a ")"
+        Gpio_setconfig(
+pio_out_pp,&set_value,0xC2);
+bsp_gpio.c(401): warning:  #177-D: variable "set_value"  was declared but never referenced
+        u16  set_value = 1;
+bsp_gpio.c(220): warning:  #177-D: function "Gpio_readport"  was declared but never referenced
+  static u8 Gpio_readport
+bsp_gpio.c(259): warning:  #177-D: function "Gpio_writeport"  was declared but never referenced
+  static u8 Gpio_writeport
+bsp_gpio.c(290): warning:  #177-D: function "Gpio_clearport"  was declared but never referenced
+  static u8 Gpio_clearport
+bsp_gpio.c(362): warning:  #177-D: function "Gpio_setcallback"  was declared but never referenced
+  static u8 Gpio_setcallback
+bsp_gpio.c: 9 warnings, 19 errors
+"..\OBJ\LED.axf" - 19 Error(s), 9 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -45,7 +109,8 @@ Package Vendor: Keil
   C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:01
+Target not created.
+Build Time Elapsed:  00:00:03
 </pre>
 </body>
 </html>

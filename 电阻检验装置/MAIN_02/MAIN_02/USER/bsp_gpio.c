@@ -1,7 +1,10 @@
 #include "Bsp_gpio.h"
 #include "exti.h"
+#include "stm32f10x_gpio.h"
 
 
+
+#define  m_gpiocallbacknum   16;
 #define GPIO_PIN_COUNT 16
 #define Pinmask    0xf0
 #define Portmask   0x0f
@@ -12,8 +15,7 @@
 #define Gpio_IN_flout    0b0100
 #define Gpio_IN_pullup	 0b1000
 
-GPIO_PortSourceGPIOA
-GPIO_PinSource0
+static gpio_callback m_gpiocallback[m_gpiocallbacknum] = {0};
 
 static uint8 Gpio_InterruptPort[GPIO_PIN_COUNT] = {0}; 
 
@@ -103,21 +105,21 @@ static u8 Gpio_setinterrupt
 
 u8 Gpio_setconfig
 (
-	u16* set_mode,
+	u16 set_mode,
 	u16* set_value,
-	u16* PINPORT
+	u16 PINPORT
 )
 {
 	uint16 port;
 	uint16 pin;
 	uint16 mode;
 	uint16 value;
-	pin=(*PINPORT)&Pinmask;
-	port=(*PINPORT)&Portmask;
+	pin=(PINPORT)&Pinmask;
+	port=(PINPORT)&Portmask;
 	if(pin>15||port>3)
 		return FUNCTION_FAIL;
 	
-	mode=*set_mode;
+	mode=set_mode;
 	RCC_APB2PeriphClockCmd
 	(
 		RCC_APB2Periph_GPIOTABLE[port],
@@ -211,7 +213,7 @@ u8 Gpio_setconfig
 			default:
 				return FUNCTION_FAIL;
 		}
-	return FUNCTION_OK
+	return FUNCTION_OK;
 }
 
 
@@ -391,4 +393,15 @@ u8 Gpio_interrupt(uint8 pin)
 	EXTI->IMR |= Gpio_InterruptPort[pin];
 	
 }
+
+
+#if Bsp_gpio_test == 1
+void Gpio_test()
+{
+	u16  set_value = 1;
+	Gpio_setconfig(Gpio_out_pp,&set_value,0xC2);
+	
+}
+
+#endif
 
