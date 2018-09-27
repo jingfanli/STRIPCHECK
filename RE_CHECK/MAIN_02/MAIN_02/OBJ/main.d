@@ -34,8 +34,7 @@
 ..\obj\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 ..\obj\main.o: ..\HARDWARE\TIMER\timer.h
 ..\obj\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-..\obj\main.o: APP.h
-..\obj\main.o: ..\FreeRTOS\include\freertos.h
+..\obj\main.o: ..\FreeRTOS\include\FreeRTOS.h
 ..\obj\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 ..\obj\main.o: ..\FreeRTOS\include\FreeRTOSConfig.h
 ..\obj\main.o: ..\FreeRTOS\include\projdefs.h
@@ -46,5 +45,11 @@
 ..\obj\main.o: ..\FreeRTOS\include\task.h
 ..\obj\main.o: ..\FreeRTOS\include\list.h
 ..\obj\main.o: ..\FreeRTOS\include\queue.h
+..\obj\main.o: APP.h
 ..\obj\main.o: Bsp_gpio.h
 ..\obj\main.o: type.h
+..\obj\main.o: ..\FreeRTOS\include\timers.h
+..\obj\main.o: iic_slave.h
+..\obj\main.o: bsp_iic.h
+..\obj\main.o: lib_queue.h
+..\obj\main.o: global.h

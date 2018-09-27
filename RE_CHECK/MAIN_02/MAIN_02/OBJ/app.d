@@ -48,4 +48,5 @@
 ..\obj\app.o: type.h
 ..\obj\app.o: Receive_task.h
 ..\obj\app.o: Send_task.h
+..\obj\app.o: ..\FreeRTOS\include\timers.h
 ..\obj\app.o: Check_task.h

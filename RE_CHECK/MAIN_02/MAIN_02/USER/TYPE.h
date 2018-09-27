@@ -36,20 +36,31 @@
 #define sint				sint8
 #endif
 
+
 typedef char				int8;
 typedef unsigned char		uint8;
 typedef signed char			sint8;
 typedef short int			int16;
 typedef unsigned short int	uint16;
 typedef signed short int	sint16;
-typedef int					int32;
-typedef unsigned int		uint32;
-typedef signed int			sint32;
+typedef long				int32;
+typedef unsigned long		uint32;
+typedef signed long			sint32;
 typedef long long			int64;
 typedef unsigned long long	uint64;
 typedef signed long	long	sint64;
 typedef float				float32;
 typedef double				float64;
+
+typedef uint8				uint;
+typedef sint8				sint;
+
+typedef enum 
+{
+	FUNCTION_OK = 1,
+	FUNCTION_FAIL = 0
+} function_return;
+
 
 
 

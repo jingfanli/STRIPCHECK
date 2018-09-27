@@ -1,5 +1,5 @@
 ..\obj\dma.o: ..\HARDWARE\DMA\dma.c
-..\obj\dma.o: ..\HARDWARE\DMA\dma.h
+..\obj\dma.o: ..\USER\bsp_dma.h
 ..\obj\dma.o: ..\SYSTEM\sys\sys.h
 ..\obj\dma.o: ..\USER\stm32f10x.h
 ..\obj\dma.o: ..\CORE\core_cm3.h

@@ -46,14 +46,29 @@ extern TaskHandle_t CheckTask_Handler;
 void Check_task(void *pvParameters);
 
 
-#define Check_num         5       
+/*
+#define Time_TASK_PRIO		4
+
+#define Time_STK_SIZE 		128  
+
+extern TaskHandle_t TimeTask_Handler;
+
+void Time_task(void * pvParameters);
+
+*/
+
+#define Check_num         1       
 #define Send_num					5
 #define Receive_num				5
+
 
 extern QueueHandle_t Check_Queue;
 
 extern QueueHandle_t Send_Queue;
 
 extern QueueHandle_t Receive_Queue;
+
+
+
 
 #endif

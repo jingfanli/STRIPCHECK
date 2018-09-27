@@ -13,7 +13,9 @@ typedef enum
   Gpio_pullup_in,
   Gpio_pulldown_in,
   Gpio_out_pp,
-  Gpio_out_od
+  Gpio_out_od,
+  Gpio_out_AF_pp,
+  Gpio_out_AF_od
 	
 }Gpio_ioconfig;
 
@@ -27,6 +29,15 @@ typedef enum
   Gpio_pincallback
 }gpio_setconfig;
 
+typedef enum
+{
+	RISING=1,
+	FALING,
+	RIASINGANDFALING,
+	
+}EXTI_TRIGER;
+
+
 typedef void(*gpio_interrupt_callback)(void);
 
 typedef struct
@@ -36,6 +47,7 @@ typedef struct
 
 
 
+u8 IIC_INTERRUPT(void);
 
 
 u8 Systemgpio_init(void);
@@ -44,7 +56,7 @@ u8 Systemgpio_init(void);
 u8 Gpio_setconfig
 (
 	u16 set_mode,
-	u16* set_value,
+	const u16* set_value,
 	u16 PINPORT
 );
 

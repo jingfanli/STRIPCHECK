@@ -58,11 +58,7 @@ void INTX_DISABLE(void);//关闭所有中断
 void INTX_ENABLE(void);	//开启所有中断
 void MSR_MSP(u32 addr);	//设置堆栈地址
 
-typedef enum 
-{
-	FUNCTION_OK = 1,
-	FUNCTION_FAIL = 0
-} function_return;
+
 
 
 #endif

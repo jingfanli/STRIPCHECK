@@ -23,6 +23,8 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f10x_it.h" 
+#include "stm32f10x_exti.h"
+#include "bsp_gpio.h"
 static u16 TrCount=0;
 static u8 Flag_RcvOK=0;
 static u8 Rx_Idx=0;
@@ -82,9 +84,56 @@ void DebugMon_Handler(void)
 
 void I2C1_EV_IRQHandler(void)
 {
-
+	EXTI_ClearITPendingBit(EXTI_Line0);
+	Gpio_interrupt(0);
 }
-  
+
+
+void EXTI0_IRQHandler(void)
+{
+	EXTI_ClearITPendingBit(EXTI_Line0);
+	Gpio_interrupt(0);
+}
+
+void EXTI1_IRQHandler(void)
+{
+	EXTI_ClearITPendingBit(EXTI_Line1);
+	Gpio_interrupt(1);
+}
+
+void EXTI2_IRQHandler(void)
+{
+	EXTI_ClearITPendingBit(EXTI_Line2);
+	Gpio_interrupt(2);
+}
+
+void EXTI3_IRQHandler(void)
+{
+	EXTI_ClearITPendingBit(EXTI_Line3);
+	Gpio_interrupt(3);
+}
+
+void EXTI4_IRQHandler(void)
+{
+	EXTI_ClearITPendingBit(EXTI_Line4);
+	Gpio_interrupt(4);
+}
+
+void EXTI9_5_IRQHandler(void)
+{
+	Gpio_interrupt(6);
+	EXTI_ClearITPendingBit(EXTI_Line5|EXTI_Line6|EXTI_Line7|EXTI_Line8|EXTI_Line9);
+	
+}
+
+void EXTI15_10_IRQHandler(void)
+{
+	Gpio_interrupt(10);
+	EXTI_ClearITPendingBit(EXTI_Line10|EXTI_Line11|EXTI_Line12|EXTI_Line13|EXTI_Line14|EXTI_Line15);
+	
+}
+
+
 //void PendSV_Handler(void)
 //{
 //}

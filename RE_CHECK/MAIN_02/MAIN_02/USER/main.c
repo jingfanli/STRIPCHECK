@@ -3,11 +3,19 @@
 #include "usart.h"
 #include "timer.h"
 #include "string.h"
-//#include "FreeRTOS.h"
-//#include "task.h"
-//#include "queue.h"
+#include "FreeRTOS.h"
+#include "task.h"
+#include "queue.h"
 #include "APP.h"
+#include "misc.h"
+#include "timers.h"
+#include "iic_slave.h"
 
+
+TimerHandle_t I2c_ReadCallback_Handler;
+
+
+void I2c_ReadCallback(TimerHandle_t xTimer);
 
 void NVIC_Configuration(void);
 void RCC_Configuration(void);
@@ -21,14 +29,12 @@ void RCC_Configuration(void);
 
 int main(void)
 {
-	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);//设置系统中断优先级分组4
+	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
 	RCC_Configuration();
 	NVIC_Configuration();
-	//iic2_init();
+	Comm_init();
 	delay_init();	    					 
 	//uart_init(115200);					
-	
-
 	//创建开始任务
     xTaskCreate((TaskFunction_t )start_task,           
                 (const char*    )"start_task",         
@@ -43,10 +49,9 @@ int main(void)
 void start_task(void *pvParameters)
 {
     taskENTER_CRITICAL();           //进入临界区
-
     Check_Queue = xQueueCreate(Check_num,sizeof(u8));    
     Send_Queue = xQueueCreate(Send_num,sizeof(u8)); 
-		Receive_Queue = xQueueCreate(Receive_num,sizeof(u8));
+	Receive_Queue = xQueueCreate(Receive_num,sizeof(u8));
     xTaskCreate((TaskFunction_t )Receive_task,             
                 (const char*    )"Receive_task",           
                 (uint16_t       )Receive_STK_SIZE,        
@@ -66,6 +71,12 @@ void start_task(void *pvParameters)
                 (void*          )NULL,
                 (UBaseType_t    )Check_TASK_PRIO,
                 (TaskHandle_t*  )&CheckTask_Handler); 
+								
+	I2c_ReadCallback_Handler = xTimerCreate( (const char * ) "I2c_ReadTimer",
+								(const TickType_t) 10,
+								(const UBaseType_t) pdFALSE,
+								(void *) 1,
+								(TimerCallbackFunction_t) I2c_ReadCallback );
 
     vTaskDelete(StartTask_Handler);
     taskEXIT_CRITICAL();            
@@ -76,7 +87,7 @@ void start_task(void *pvParameters)
 void NVIC_Configuration(void)
 {
   NVIC_InitTypeDef NVIC_InitStructure;
-  NVIC_InitStructure.NVIC_IRQChannel = I2C2_EV_IRQn;
+  NVIC_InitStructure.NVIC_IRQChannel = EXTI9_5_IRQn;
   NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority =10;
   NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
   NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
@@ -86,44 +97,32 @@ void NVIC_Configuration(void)
 
 void RCC_Configuration(void)
 {
-  /* 定义枚举类型变量 HSEStartUpStatus */
+  
   ErrorStatus HSEStartUpStatus;
-  /* 复位系统时钟设置*/
+
   RCC_DeInit();
-  /* 开启 HSE*/
+
   RCC_HSEConfig(RCC_HSE_ON);
-  /* 等待 HSE 起振并稳定*/
+
   HSEStartUpStatus = RCC_WaitForHSEStartUp();
-  /* 判断 HSE 起是否振成功，是则进入 if()内部 */
+
   if(HSEStartUpStatus == SUCCESS)
   {
-  /* 选择 HCLK（AHB）时钟源为 SYSCLK 1 分频 */
   RCC_HCLKConfig(RCC_SYSCLK_Div1);
-  /* 选择 PCLK2 时钟源为 HCLK（AHB） 1 分频 */
   RCC_PCLK2Config(RCC_HCLK_Div1);
-  /* 选择 PCLK1 时钟源为 HCLK（AHB） 2 分频 */RCC_PCLK1Config(RCC_HCLK_Div2);
-  /* 设置 FLASH 延时周期数为 2 */
+  RCC_PCLK1Config(RCC_HCLK_Div2);
   FLASH_SetLatency(FLASH_Latency_2);
-  /* 使能 FLASH 预取缓存 */
   FLASH_PrefetchBufferCmd(FLASH_PrefetchBuffer_Enable);
-  /* 选择锁相环（PLL）时钟源为 HSE 1 分频， 倍频数为 9，则 PLL 输出频率为 8MHz
-  * 9 = 72MHz */
   RCC_PLLConfig(RCC_PLLSource_HSE_Div1, RCC_PLLMul_9);
-  /* 使能 PLL */
   RCC_PLLCmd(ENABLE);
-  /* 等待 PLL 输出稳定 */
   while(RCC_GetFlagStatus(RCC_FLAG_PLLRDY) == RESET);
-  /* 选择 SYSCLK 时钟源为 PLL */
   RCC_SYSCLKConfig(RCC_SYSCLKSource_PLLCLK);
-  /* 等待 PLL 成为 SYSCLK 时钟源 */
   while(RCC_GetSYSCLKSource() != 0x08);
   }
-  /* 打开 APB2 总线上的 GPIOA 时钟*/
-  //RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA|RCC_APB2Periph_GPIOB|
-	//RCC_APB2Periph_USART1, ENABLE);
-  //RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1, ENABLE);
-  RCC_APB1PeriphClockCmd(RCC_APB1Periph_I2C1|RCC_APB1Periph_I2C2,ENABLE);
-
+}
+void I2c_ReadCallback(TimerHandle_t xTimer)
+{
+	//IIC_Timeout();
 }
 
 

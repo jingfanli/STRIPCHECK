@@ -10,9 +10,17 @@
 #define Portmask   0x0f
 
 
+  
+
+
 static gpio_callback m_gpiocallback[m_gpiocallbacknum] = {0};
 
 static uint8 Gpio_InterruptPort[GPIO_PIN_COUNT] = {0}; 
+
+static uint8 EtiIRQchannel[]=
+{
+EXTI0_IRQn,EXTI1_IRQn,EXTI2_IRQn,EXTI3_IRQn,EXTI4_IRQn	
+};
 
 
 static uint8 GPIO_PORTSOURCETABLE[]=
@@ -84,7 +92,7 @@ static u8 Gpio_setcallback
 (
 	uint16 port,
 	uint16 pin,
-	const uint8* value
+	const uint16* value
 
 );
 
@@ -92,7 +100,7 @@ static u8 Gpio_setinterrupt
 (
 	uint16 port,
   	uint16 pin,
-	FunctionalState NewState
+	uint16 Svalue
 );
 
 
@@ -100,7 +108,7 @@ static u8 Gpio_setinterrupt
 u8 Gpio_setconfig
 (
 	u16 set_mode,
-	u16* set_value,
+	const uint16* set_value,
 	u16 PINPORT
 )
 {
@@ -111,7 +119,7 @@ u8 Gpio_setconfig
 	GPIO_InitTypeDef GPIO_INITSTRUCT;
 	pin=(PINPORT)&Pinmask;
 	port=(PINPORT)&Portmask;
-	pin=pin>>8;
+	pin=pin>>4;
 	if(pin>15||port>3)
 		return FUNCTION_FAIL;
 	
@@ -127,9 +135,9 @@ u8 Gpio_setconfig
 			case Gpio_pinset:
 				value=1;
 				if(*set_value!=0)
-				return Gpio_writepin(port,pin,&value);
+				return Gpio_writepin(port,pin,(uint16*)&value);
 				else
-				return Gpio_clearpin(port,pin,&value);
+				return Gpio_clearpin(port,pin,(uint16*)&value);
 
 			case Gpio_out:
 				
@@ -137,17 +145,33 @@ u8 Gpio_setconfig
 					{
 						case Gpio_out_pp:
 							GPIO_INITSTRUCT.GPIO_Mode = GPIO_Mode_Out_PP;
-							GPIO_INITSTRUCT.GPIO_Pin=pin;
+							GPIO_INITSTRUCT.GPIO_Pin=GPIO_PINTABL[pin];//pin;
+							GPIO_INITSTRUCT.GPIO_Speed=GPIO_Speed_50MHz;
 							GPIO_Init(Gpio_table[port],&GPIO_INITSTRUCT);
 							
 
 							break;
 						case Gpio_out_od:
 							GPIO_INITSTRUCT.GPIO_Mode = GPIO_Mode_Out_OD;
-							GPIO_INITSTRUCT.GPIO_Pin=pin;
+							GPIO_INITSTRUCT.GPIO_Pin=GPIO_PINTABL[pin];
+							GPIO_INITSTRUCT.GPIO_Speed=GPIO_Speed_50MHz;
 							GPIO_Init(Gpio_table[port],&GPIO_INITSTRUCT);
 
 							break;
+						case Gpio_out_AF_pp:
+							GPIO_INITSTRUCT.GPIO_Mode = GPIO_Mode_AF_PP;
+							GPIO_INITSTRUCT.GPIO_Pin=GPIO_PINTABL[pin];
+							GPIO_INITSTRUCT.GPIO_Speed=GPIO_Speed_50MHz;
+							GPIO_Init(Gpio_table[port],&GPIO_INITSTRUCT);
+							break;
+						case Gpio_out_AF_od:
+							GPIO_INITSTRUCT.GPIO_Mode = GPIO_Mode_AF_OD;
+							GPIO_INITSTRUCT.GPIO_Pin=GPIO_PINTABL[pin];
+							GPIO_INITSTRUCT.GPIO_Speed=GPIO_Speed_50MHz;
+							GPIO_Init(Gpio_table[port],&GPIO_INITSTRUCT);
+							break;
+
+						
 						default:
 							return FUNCTION_FAIL;
 					}
@@ -158,13 +182,13 @@ u8 Gpio_setconfig
 					{
 						case Gpio_Ain:
 							GPIO_INITSTRUCT.GPIO_Mode = GPIO_Mode_AIN;
-							GPIO_INITSTRUCT.GPIO_Pin=pin;
+							GPIO_INITSTRUCT.GPIO_Pin=GPIO_PINTABL[pin];
 							GPIO_Init(Gpio_table[port],&GPIO_INITSTRUCT);
 							break;
 
 						case Gpio_flout_in:
 							GPIO_INITSTRUCT.GPIO_Mode = GPIO_Mode_IN_FLOATING;
-							GPIO_INITSTRUCT.GPIO_Pin=pin;
+							GPIO_INITSTRUCT.GPIO_Pin=GPIO_PINTABL[pin];
 							GPIO_Init(Gpio_table[port],&GPIO_INITSTRUCT);
 
 							break;
@@ -172,13 +196,13 @@ u8 Gpio_setconfig
 
 						case Gpio_pullup_in:
 							GPIO_INITSTRUCT.GPIO_Mode = GPIO_Mode_IPU;
-							GPIO_INITSTRUCT.GPIO_Pin=pin;
+							GPIO_INITSTRUCT.GPIO_Pin=GPIO_PINTABL[pin];
 							GPIO_Init(Gpio_table[port],&GPIO_INITSTRUCT);
 							break;
 
 						case Gpio_pulldown_in:
 							GPIO_INITSTRUCT.GPIO_Mode = GPIO_Mode_IPD;
-							GPIO_INITSTRUCT.GPIO_Pin=pin;
+							GPIO_INITSTRUCT.GPIO_Pin=GPIO_PINTABL[pin];
 							GPIO_Init(Gpio_table[port],&GPIO_INITSTRUCT);
 							break;
 
@@ -188,25 +212,25 @@ u8 Gpio_setconfig
 
 				break;
 			case Gpio_pinread:
-				return Gpio_readpin(port,pin,set_value);
+				return Gpio_readpin(port,pin,(uint16*)set_value);
 				
 			case Gpio_pininterrupt:
 				if(*set_value!=0)
 				{
 				Gpio_InterruptPort[pin] = port;
-				Gpio_setinterrupt(port,pin,ENABLE);
+				Gpio_setinterrupt(port,pin, *set_value);
 				}
 			
 				else
 				{					
 				Gpio_InterruptPort[pin] = 0;
-				Gpio_setinterrupt(port,pin,DISABLE);
+				Gpio_setinterrupt(port,pin,*set_value);
 				}
 			
 				break;
 
 			case Gpio_pincallback:
-				Gpio_setcallback(port,pin,(const uint8*)&value);
+				Gpio_setcallback(port,pin,set_value);
 				break;
 				
 			default:
@@ -279,7 +303,7 @@ static u8 Gpio_writepin
 {
 
 	if(* value==1)
-	 Gpio_table[port]->BSRR |= GPIO_PINTABL[pin];
+	 Gpio_table[port]->BSRR = GPIO_PINTABL[pin];
 	else
 	return FUNCTION_FAIL;
 
@@ -313,7 +337,7 @@ static u8 Gpio_clearpin
 
 
 	if(* value==1)
-	Gpio_table[port]->BRR &= ~GPIO_PINTABL[pin];
+	Gpio_table[port]->BRR = GPIO_PINTABL[pin];
 	else
 		return FUNCTION_FAIL;
 	return FUNCTION_OK;
@@ -323,22 +347,38 @@ static u8 Gpio_setinterrupt
 (
 	uint16 port,
   	uint16 pin,
-	FunctionalState NewState
+	uint16 Svalue
 )
 {
+	uint16 value;
 
 
 	NVIC_InitTypeDef NVIC_initstruct;
 	EXTI_InitTypeDef EXTI_INITSTRUCT;
-	NVIC_initstruct.NVIC_IRQChannel = EXTI0_IRQn|EXTI1_IRQn|EXTI2_IRQn|
-									  EXTI3_IRQn|EXTI4_IRQn|EXTI9_5_IRQn|
-									  EXTI9_5_IRQn|EXTI15_10_IRQn;
+	GPIO_InitTypeDef GPIO_INITSTRUCT;
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO,ENABLE);
+	if(pin<5)
+		
+	NVIC_initstruct.NVIC_IRQChannel = EtiIRQchannel[pin];
+
+	else if(pin<10)
+
+	NVIC_initstruct.NVIC_IRQChannel = EXTI9_5_IRQn;
+
+	else 
+	
+	NVIC_initstruct.NVIC_IRQChannel = EXTI15_10_IRQn;
 	
 	NVIC_initstruct.NVIC_IRQChannelPreemptionPriority = 6;
 
 	NVIC_initstruct.NVIC_IRQChannelCmd = ENABLE;
+	
 
 	NVIC_Init(&NVIC_initstruct);
+	GPIO_INITSTRUCT.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+	GPIO_INITSTRUCT.GPIO_Pin=GPIO_PINTABL[pin];
+
+	GPIO_Init(Gpio_table[port],&GPIO_INITSTRUCT);
 
 	GPIO_EXTILineConfig(GPIO_PORTSOURCETABLE[port],GPIO_PINSOURCETABLE[pin]);
 
@@ -346,10 +386,20 @@ static u8 Gpio_setinterrupt
 
 	EXTI_INITSTRUCT.EXTI_Mode = EXTI_Mode_Interrupt;
 
+	if(Svalue==1)
+
 	EXTI_INITSTRUCT.EXTI_Trigger = EXTI_Trigger_Rising;
+	else if(Svalue == 2)
+		EXTI_INITSTRUCT.EXTI_Trigger = EXTI_Trigger_Falling;
+	else
+		EXTI_INITSTRUCT.EXTI_Trigger = EXTI_Trigger_Rising_Falling;
 
-	EXTI_INITSTRUCT.EXTI_LineCmd = NewState;
+	if(Svalue==0)
 
+	EXTI_INITSTRUCT.EXTI_LineCmd = DISABLE;
+	else
+		
+	EXTI_INITSTRUCT.EXTI_LineCmd = ENABLE;
 	EXTI_Init(&EXTI_INITSTRUCT);
 
 	return FUNCTION_OK;
@@ -362,7 +412,7 @@ static u8 Gpio_setcallback
 (
 	uint16 port,
 	uint16 pin,
-	const uint8* value
+	const uint16* value
 
 )
 {
@@ -382,12 +432,15 @@ u8 Gpio_interrupt(uint8 pin)
 
 	
 	 EXTI->IMR &= ~Gpio_InterruptPort[pin];
+	 if(EXTI_GetITStatus((1)<<pin))
+	 	{
 	if((m_gpiocallback[pin].fp_gpio_interrupt)!=0);
 		{
 		m_gpiocallback[pin].fp_gpio_interrupt();
 
 		//EXTI_ClearITPendingBit(GPIO_PINSOURCETABLE[pin]);
 		}
+	 	}
 	
 	EXTI->IMR |= Gpio_InterruptPort[pin];
 		
@@ -400,14 +453,14 @@ u8 Gpio_interrupt(uint8 pin)
 void Gpio_test(void)
 {
 	u16  set_value = Gpio_out_pp;
-	Gpio_setconfig(Gpio_out,&set_value,0xC2);
+	Gpio_setconfig(Gpio_out,&set_value,0xA0);
 	set_value = 1;
-	Gpio_setconfig(Gpio_pinset,&set_value,0xC2);
+	Gpio_setconfig(Gpio_pinset,&set_value,0xA0);
 	
 	set_value = Gpio_out_pp;
-	Gpio_setconfig(Gpio_out,&set_value,0x22);
+	Gpio_setconfig(Gpio_out,&set_value,0xc1);
 	set_value = 0;
-	Gpio_setconfig(Gpio_pinset,&set_value,0x22);		
+	Gpio_setconfig(Gpio_pinset,&set_value,0xc1);		
 }
 
 #endif
