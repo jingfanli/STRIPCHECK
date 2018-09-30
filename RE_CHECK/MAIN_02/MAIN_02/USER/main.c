@@ -32,7 +32,7 @@ int main(void)
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
 	RCC_Configuration();
 	NVIC_Configuration();
-	Comm_init();
+	IICSLAVE_Init();
 	delay_init();	    					 
 	//uart_init(115200);					
 	//创建开始任务

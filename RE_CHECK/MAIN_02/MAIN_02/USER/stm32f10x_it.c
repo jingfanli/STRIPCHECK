@@ -25,9 +25,10 @@
 #include "stm32f10x_it.h" 
 #include "stm32f10x_exti.h"
 #include "bsp_gpio.h"
+#include "Iic_slave.h"
 static u16 TrCount=0;
 static u8 Flag_RcvOK=0;
-static u8 Rx_Idx=0;
+
 
 static u8 Buffer_Rx[30]={0};
 
@@ -82,11 +83,14 @@ void DebugMon_Handler(void)
 
 
 
-void I2C1_EV_IRQHandler(void)
-{
-	EXTI_ClearITPendingBit(EXTI_Line0);
-	Gpio_interrupt(0);
+void I2C2_EV_IRQHandler(void)
+{ 
+	 
+	 I2C2_interrupt();
+
+	 
 }
+
 
 
 void EXTI0_IRQHandler(void)
@@ -132,6 +136,14 @@ void EXTI15_10_IRQHandler(void)
 	EXTI_ClearITPendingBit(EXTI_Line10|EXTI_Line11|EXTI_Line12|EXTI_Line13|EXTI_Line14|EXTI_Line15);
 	
 }
+
+
+void I2C1_ER_IRQHandler(void)
+{
+	I2C2_ER_INTERRUPT();
+
+}
+
 
 
 //void PendSV_Handler(void)

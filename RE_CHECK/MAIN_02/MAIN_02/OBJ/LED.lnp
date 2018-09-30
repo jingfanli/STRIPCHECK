@@ -27,6 +27,7 @@
 "..\obj\stm32f10x_adc.o"
 "..\obj\stm32f10x_dma.o"
 "..\obj\stm32f10x_flash.o"
+"..\obj\stm32f10x_i2c.o"
 "..\obj\croutine.o"
 "..\obj\event_groups.o"
 "..\obj\list.o"
