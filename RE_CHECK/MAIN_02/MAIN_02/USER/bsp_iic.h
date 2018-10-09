@@ -28,6 +28,7 @@ void IIC1_NAck(void);				//IIC²»·¢ËÍACKÐÅºÅ
 
 void IIC1_Write_One_Byte(u8 daddr,u8 addr,u8 data);
 u8 IIC1_Read_One_Byte(u8 daddr,u8 addr);	  
+extern u8 Send_control;
 
 
 

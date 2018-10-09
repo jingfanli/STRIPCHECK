@@ -1,5 +1,5 @@
 Dependencies for Project 'FreeRTOS', Target 'FreeRTOS': (DO NOT MODIFY !)
-F (.\main.c)(0x5BAF0FD7)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\STM32F10x_FWLib\inc -I ..\CORE -I ..\FreeRTOS\include -I ..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\HARDWARE\TIMER -I ..\HARDWARE\EXTI -I ..\HARDWARE\IIC -I ..\HARDWARE\ADC -I ..\USER-I.\RTE\_FreeRTOS-IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\main.o --omf_browse ..\obj\main.crf --depend ..\obj\main.d)
+F (.\main.c)(0x5BBC4C0B)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\STM32F10x_FWLib\inc -I ..\CORE -I ..\FreeRTOS\include -I ..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\HARDWARE\TIMER -I ..\HARDWARE\EXTI -I ..\HARDWARE\IIC -I ..\HARDWARE\ADC -I ..\USER-I.\RTE\_FreeRTOS-IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\main.o --omf_browse ..\obj\main.crf --depend ..\obj\main.d)
 I (..\SYSTEM\sys\sys.h)(0x5BAAEE1E)
 I (..\USER\stm32f10x.h)(0x4D783CB4)
 I (..\CORE\core_cm3.h)(0x4D523B58)
@@ -45,13 +45,13 @@ I (..\FreeRTOS\include\mpu_wrappers.h)(0x573F3A16)
 I (..\FreeRTOS\include\task.h)(0x573F3A16)
 I (..\FreeRTOS\include\list.h)(0x573F3A16)
 I (..\FreeRTOS\include\queue.h)(0x5B86584A)
-I (APP.h)(0x5BAC6B6D)
+I (APP.h)(0x5BBC4C03)
 I (Bsp_gpio.h)(0x5BAB2A96)
 I (type.h)(0x5BAAEDB9)
 I (..\FreeRTOS\include\timers.h)(0x573F3A16)
-I (iic_slave.h)(0x5BAF2421)
-I (bsp_iic.h)(0x5BAC88FE)
-I (lib_queue.h)(0x59C351B3)
+I (iic_slave.h)(0x5BBC45AF)
+I (bsp_iic.h)(0x5BBC4587)
+I (lib_queue.h)(0x5BBC0C6D)
 I (global.h)(0x5BAAEE02)
 F (.\stm32f10x_it.c)(0x5BAF2444)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\STM32F10x_FWLib\inc -I ..\CORE -I ..\FreeRTOS\include -I ..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\HARDWARE\TIMER -I ..\HARDWARE\EXTI -I ..\HARDWARE\IIC -I ..\HARDWARE\ADC -I ..\USER-I.\RTE\_FreeRTOS-IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_it.o --omf_browse ..\obj\stm32f10x_it.crf --depend ..\obj\stm32f10x_it.d)
 I (stm32f10x_it.h)(0x4D99A426)
@@ -86,7 +86,7 @@ I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x4D783BB4)
 I (..\STM32F10x_FWLib\inc\misc.h)(0x4D783BB4)
 I (bsp_gpio.h)(0x5BAB2A96)
 I (type.h)(0x5BAAEDB9)
-I (Iic_slave.h)(0x5BAF2421)
+I (Iic_slave.h)(0x5BBC45AF)
 I (..\FreeRTOS\include\FreeRTOS.h)(0x573F3A16)
 I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x588B8344)
 I (..\FreeRTOS\include\FreeRTOSConfig.h)(0x583C06FC)
@@ -103,8 +103,8 @@ I (..\FreeRTOS\include\task.h)(0x573F3A16)
 I (..\FreeRTOS\include\list.h)(0x573F3A16)
 I (..\FreeRTOS\include\queue.h)(0x5B86584A)
 I (..\FreeRTOS\include\timers.h)(0x573F3A16)
-I (bsp_iic.h)(0x5BAC88FE)
-I (lib_queue.h)(0x59C351B3)
+I (bsp_iic.h)(0x5BBC4587)
+I (lib_queue.h)(0x5BBC0C6D)
 I (global.h)(0x5BAAEE02)
 F (.\system_stm32f10x.c)(0x4D99A426)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\STM32F10x_FWLib\inc -I ..\CORE -I ..\FreeRTOS\include -I ..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\HARDWARE\TIMER -I ..\HARDWARE\EXTI -I ..\HARDWARE\IIC -I ..\HARDWARE\ADC -I ..\USER-I.\RTE\_FreeRTOS-IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\system_stm32f10x.o --omf_browse ..\obj\system_stm32f10x.crf --depend ..\obj\system_stm32f10x.d)
 I (stm32f10x.h)(0x4D783CB4)
@@ -136,8 +136,8 @@ I (..\STM32F10x_FWLib\inc\stm32f10x_tim.h)(0x4D783BB4)
 I (..\STM32F10x_FWLib\inc\stm32f10x_usart.h)(0x504F415E)
 I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x4D783BB4)
 I (..\STM32F10x_FWLib\inc\misc.h)(0x4D783BB4)
-F (.\APP.c)(0x5BAC8A1E)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\STM32F10x_FWLib\inc -I ..\CORE -I ..\FreeRTOS\include -I ..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\HARDWARE\TIMER -I ..\HARDWARE\EXTI -I ..\HARDWARE\IIC -I ..\HARDWARE\ADC -I ..\USER-I.\RTE\_FreeRTOS-IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\app.o --omf_browse ..\obj\app.crf --depend ..\obj\app.d)
-I (APP.H)(0x5BAC6B6D)
+F (.\APP.c)(0x5BBC4BB0)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\STM32F10x_FWLib\inc -I ..\CORE -I ..\FreeRTOS\include -I ..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\HARDWARE\TIMER -I ..\HARDWARE\EXTI -I ..\HARDWARE\IIC -I ..\HARDWARE\ADC -I ..\USER-I.\RTE\_FreeRTOS-IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\app.o --omf_browse ..\obj\app.crf --depend ..\obj\app.d)
+I (APP.H)(0x5BBC4C03)
 I (..\FreeRTOS\include\freertos.h)(0x573F3A16)
 I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x588B8344)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
@@ -184,11 +184,15 @@ I (..\FreeRTOS\include\queue.h)(0x5B86584A)
 I (Bsp_gpio.h)(0x5BAB2A96)
 I (type.h)(0x5BAAEDB9)
 I (Receive_task.h)(0x5BAC8901)
-I (Send_task.h)(0x5BAC7ED2)
+I (Send_task.h)(0x5BBC3FC9)
 I (..\FreeRTOS\include\timers.h)(0x573F3A16)
-I (Check_task.h)(0x5B9F3AE5)
-F (.\Check_task.c)(0x5BA9E4A5)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\STM32F10x_FWLib\inc -I ..\CORE -I ..\FreeRTOS\include -I ..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\HARDWARE\TIMER -I ..\HARDWARE\EXTI -I ..\HARDWARE\IIC -I ..\HARDWARE\ADC -I ..\USER-I.\RTE\_FreeRTOS-IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\check_task.o --omf_browse ..\obj\check_task.crf --depend ..\obj\check_task.d)
-I (Check_task.h)(0x5B9F3AE5)
+I (Check_task.h)(0x5BBC4AC8)
+I (lib_queue.h)(0x5BBC0C6D)
+I (global.h)(0x5BAAEE02)
+I (Iic_slave.h)(0x5BBC45AF)
+I (bsp_iic.h)(0x5BBC4587)
+F (.\Check_task.c)(0x5BBC4B28)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\STM32F10x_FWLib\inc -I ..\CORE -I ..\FreeRTOS\include -I ..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\HARDWARE\TIMER -I ..\HARDWARE\EXTI -I ..\HARDWARE\IIC -I ..\HARDWARE\ADC -I ..\USER-I.\RTE\_FreeRTOS-IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\check_task.o --omf_browse ..\obj\check_task.crf --depend ..\obj\check_task.d)
+I (Check_task.h)(0x5BBC4AC8)
 I (Bsp_gpio.h)(0x5BAB2A96)
 I (stm32f10x.h)(0x4D783CB4)
 I (..\CORE\core_cm3.h)(0x4D523B58)
@@ -223,8 +227,8 @@ I (type.h)(0x5BAAEDB9)
 I (..\SYSTEM\sys\sys.h)(0x5BAAEE1E)
 I (bsp_adc.h)(0x5B9F39C7)
 I (bsp_dma.h)(0x5B9B1C2D)
-F (.\lib_queue.c)(0x5BAAF39C)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\STM32F10x_FWLib\inc -I ..\CORE -I ..\FreeRTOS\include -I ..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\HARDWARE\TIMER -I ..\HARDWARE\EXTI -I ..\HARDWARE\IIC -I ..\HARDWARE\ADC -I ..\USER-I.\RTE\_FreeRTOS-IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\lib_queue.o --omf_browse ..\obj\lib_queue.crf --depend ..\obj\lib_queue.d)
-I (lib_queue.h)(0x59C351B3)
+F (.\lib_queue.c)(0x5BBC0C5F)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\STM32F10x_FWLib\inc -I ..\CORE -I ..\FreeRTOS\include -I ..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\HARDWARE\TIMER -I ..\HARDWARE\EXTI -I ..\HARDWARE\IIC -I ..\HARDWARE\ADC -I ..\USER-I.\RTE\_FreeRTOS-IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\lib_queue.o --omf_browse ..\obj\lib_queue.crf --depend ..\obj\lib_queue.d)
+I (lib_queue.h)(0x5BBC0C6D)
 I (global.h)(0x5BAAEE02)
 I (type.h)(0x5BAAEDB9)
 I (stm32f10x.h)(0x4D783CB4)
@@ -289,8 +293,8 @@ I (..\STM32F10x_FWLib\inc\stm32f10x_tim.h)(0x4D783BB4)
 I (..\STM32F10x_FWLib\inc\stm32f10x_usart.h)(0x504F415E)
 I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x4D783BB4)
 I (..\STM32F10x_FWLib\inc\misc.h)(0x4D783BB4)
-F (.\Send_task.c)(0x5BAC8A4B)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\STM32F10x_FWLib\inc -I ..\CORE -I ..\FreeRTOS\include -I ..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\HARDWARE\TIMER -I ..\HARDWARE\EXTI -I ..\HARDWARE\IIC -I ..\HARDWARE\ADC -I ..\USER-I.\RTE\_FreeRTOS-IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\send_task.o --omf_browse ..\obj\send_task.crf --depend ..\obj\send_task.d)
-I (bsp_iic.h)(0x5BAC88FE)
+F (.\Send_task.c)(0x5BBC4C68)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\STM32F10x_FWLib\inc -I ..\CORE -I ..\FreeRTOS\include -I ..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\HARDWARE\TIMER -I ..\HARDWARE\EXTI -I ..\HARDWARE\IIC -I ..\HARDWARE\ADC -I ..\USER-I.\RTE\_FreeRTOS-IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\send_task.o --omf_browse ..\obj\send_task.crf --depend ..\obj\send_task.d)
+I (bsp_iic.h)(0x5BBC4587)
 I (..\SYSTEM\sys\sys.h)(0x5BAAEE1E)
 I (..\USER\stm32f10x.h)(0x4D783CB4)
 I (..\CORE\core_cm3.h)(0x4D523B58)
@@ -322,10 +326,10 @@ I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x4D783BB4)
 I (..\STM32F10x_FWLib\inc\misc.h)(0x4D783BB4)
 I (bsp_gpio.h)(0x5BAB2A96)
 I (type.h)(0x5BAAEDB9)
-I (lib_queue.h)(0x59C351B3)
+I (lib_queue.h)(0x5BBC0C6D)
 I (global.h)(0x5BAAEE02)
 I (lib_string.h)(0x59C351B3)
-I (Send_task.h)(0x5BAC7ED2)
+I (Send_task.h)(0x5BBC3FC9)
 I (..\FreeRTOS\include\FreeRTOS.h)(0x573F3A16)
 I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x588B8344)
 I (..\FreeRTOS\include\FreeRTOSConfig.h)(0x583C06FC)
@@ -341,8 +345,9 @@ I (..\FreeRTOS\include\task.h)(0x573F3A16)
 I (..\FreeRTOS\include\list.h)(0x573F3A16)
 I (..\FreeRTOS\include\queue.h)(0x5B86584A)
 I (..\FreeRTOS\include\timers.h)(0x573F3A16)
-F (.\iic_slave.c)(0x5BB0364F)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\STM32F10x_FWLib\inc -I ..\CORE -I ..\FreeRTOS\include -I ..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\HARDWARE\TIMER -I ..\HARDWARE\EXTI -I ..\HARDWARE\IIC -I ..\HARDWARE\ADC -I ..\USER-I.\RTE\_FreeRTOS-IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\iic_slave.o --omf_browse ..\obj\iic_slave.crf --depend ..\obj\iic_slave.d)
-I (Iic_slave.h)(0x5BAF2421)
+I (lib_checksum.h)(0x59C351B3)
+F (.\iic_slave.c)(0x5BBC4C2D)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\STM32F10x_FWLib\inc -I ..\CORE -I ..\FreeRTOS\include -I ..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\HARDWARE\TIMER -I ..\HARDWARE\EXTI -I ..\HARDWARE\IIC -I ..\HARDWARE\ADC -I ..\USER-I.\RTE\_FreeRTOS-IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\iic_slave.o --omf_browse ..\obj\iic_slave.crf --depend ..\obj\iic_slave.d)
+I (Iic_slave.h)(0x5BBC45AF)
 I (..\FreeRTOS\include\FreeRTOS.h)(0x573F3A16)
 I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x588B8344)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
@@ -387,11 +392,46 @@ I (..\FreeRTOS\include\task.h)(0x573F3A16)
 I (..\FreeRTOS\include\list.h)(0x573F3A16)
 I (..\FreeRTOS\include\queue.h)(0x5B86584A)
 I (..\FreeRTOS\include\timers.h)(0x573F3A16)
-I (bsp_iic.h)(0x5BAC88FE)
+I (bsp_iic.h)(0x5BBC4587)
 I (bsp_gpio.h)(0x5BAB2A96)
 I (type.h)(0x5BAAEDB9)
-I (lib_queue.h)(0x59C351B3)
+I (lib_queue.h)(0x5BBC0C6D)
 I (global.h)(0x5BAAEE02)
+I (lib_checksum.h)(0x59C351B3)
+I (app.h)(0x5BBC4C03)
+F (.\lib_checksum.c)(0x59C351B3)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\STM32F10x_FWLib\inc -I ..\CORE -I ..\FreeRTOS\include -I ..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\HARDWARE\TIMER -I ..\HARDWARE\EXTI -I ..\HARDWARE\IIC -I ..\HARDWARE\ADC -I ..\USER-I.\RTE\_FreeRTOS-IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\lib_checksum.o --omf_browse ..\obj\lib_checksum.crf --depend ..\obj\lib_checksum.d)
+I (lib_checksum.h)(0x59C351B3)
+I (global.h)(0x5BAAEE02)
+I (type.h)(0x5BAAEDB9)
+I (stm32f10x.h)(0x4D783CB4)
+I (..\CORE\core_cm3.h)(0x4D523B58)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
+I (system_stm32f10x.h)(0x4D783CAA)
+I (stm32f10x_conf.h)(0x55B0C93D)
+I (..\STM32F10x_FWLib\inc\stm32f10x_adc.h)(0x4D783BB4)
+I (..\USER\stm32f10x.h)(0x4D783CB4)
+I (..\STM32F10x_FWLib\inc\stm32f10x_bkp.h)(0x4D783BB4)
+I (..\STM32F10x_FWLib\inc\stm32f10x_can.h)(0x4D783BB4)
+I (..\STM32F10x_FWLib\inc\stm32f10x_cec.h)(0x4D783BB4)
+I (..\STM32F10x_FWLib\inc\stm32f10x_crc.h)(0x4D783BB4)
+I (..\STM32F10x_FWLib\inc\stm32f10x_dac.h)(0x4D783BB4)
+I (..\STM32F10x_FWLib\inc\stm32f10x_dbgmcu.h)(0x4D783BB4)
+I (..\STM32F10x_FWLib\inc\stm32f10x_dma.h)(0x4D783BB4)
+I (..\STM32F10x_FWLib\inc\stm32f10x_exti.h)(0x4D783BB4)
+I (..\STM32F10x_FWLib\inc\stm32f10x_flash.h)(0x4D783BB4)
+I (..\STM32F10x_FWLib\inc\stm32f10x_fsmc.h)(0x4D783BB4)
+I (..\STM32F10x_FWLib\inc\stm32f10x_gpio.h)(0x50515FBA)
+I (..\STM32F10x_FWLib\inc\stm32f10x_i2c.h)(0x4D783BB4)
+I (..\STM32F10x_FWLib\inc\stm32f10x_iwdg.h)(0x4D783BB4)
+I (..\STM32F10x_FWLib\inc\stm32f10x_pwr.h)(0x4D783BB4)
+I (..\STM32F10x_FWLib\inc\stm32f10x_rcc.h)(0x4D783BB4)
+I (..\STM32F10x_FWLib\inc\stm32f10x_rtc.h)(0x4D783BB4)
+I (..\STM32F10x_FWLib\inc\stm32f10x_sdio.h)(0x4D783BB4)
+I (..\STM32F10x_FWLib\inc\stm32f10x_spi.h)(0x4D783BB4)
+I (..\STM32F10x_FWLib\inc\stm32f10x_tim.h)(0x4D783BB4)
+I (..\STM32F10x_FWLib\inc\stm32f10x_usart.h)(0x504F415E)
+I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x4D783BB4)
+I (..\STM32F10x_FWLib\inc\misc.h)(0x4D783BB4)
 F (..\HARDWARE\TIMER\timer.c)(0x5B2B64B9)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\STM32F10x_FWLib\inc -I ..\CORE -I ..\FreeRTOS\include -I ..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\HARDWARE\TIMER -I ..\HARDWARE\EXTI -I ..\HARDWARE\IIC -I ..\HARDWARE\ADC -I ..\USER-I.\RTE\_FreeRTOS-IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\timer.o --omf_browse ..\obj\timer.crf --depend ..\obj\timer.d)
 I (..\HARDWARE\TIMER\timer.h)(0x583BE01D)
 I (..\SYSTEM\sys\sys.h)(0x5BAAEE1E)
@@ -524,7 +564,7 @@ I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x4D783BB4)
 I (..\STM32F10x_FWLib\inc\misc.h)(0x4D783BB4)
 I (bsp_adc.h)(0x5B9F39C7)
 F (.\bsp_iic.c)(0x5BAC8739)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\STM32F10x_FWLib\inc -I ..\CORE -I ..\FreeRTOS\include -I ..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\HARDWARE\TIMER -I ..\HARDWARE\EXTI -I ..\HARDWARE\IIC -I ..\HARDWARE\ADC -I ..\USER-I.\RTE\_FreeRTOS-IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\bsp_iic.o --omf_browse ..\obj\bsp_iic.crf --depend ..\obj\bsp_iic.d)
-I (bsp_iic.h)(0x5BAC88FE)
+I (bsp_iic.h)(0x5BBC4587)
 I (..\SYSTEM\sys\sys.h)(0x5BAAEE1E)
 I (..\USER\stm32f10x.h)(0x4D783CB4)
 I (..\CORE\core_cm3.h)(0x4D523B58)
@@ -555,7 +595,7 @@ I (..\STM32F10x_FWLib\inc\stm32f10x_usart.h)(0x504F415E)
 I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x4D783BB4)
 I (..\STM32F10x_FWLib\inc\misc.h)(0x4D783BB4)
 I (..\SYSTEM\delay\delay.h)(0x5B3AEC18)
-I (lib_queue.h)(0x59C351B3)
+I (lib_queue.h)(0x5BBC0C6D)
 I (global.h)(0x5BAAEE02)
 I (type.h)(0x5BAAEDB9)
 F (..\SYSTEM\delay\delay.c)(0x5B838F02)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\STM32F10x_FWLib\inc -I ..\CORE -I ..\FreeRTOS\include -I ..\FreeRTOS\portable\RVDS\ARM_CM3 -I ..\HARDWARE\TIMER -I ..\HARDWARE\EXTI -I ..\HARDWARE\IIC -I ..\HARDWARE\ADC -I ..\USER-I.\RTE\_FreeRTOS-IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\delay.o --omf_browse ..\obj\delay.crf --depend ..\obj\delay.d)

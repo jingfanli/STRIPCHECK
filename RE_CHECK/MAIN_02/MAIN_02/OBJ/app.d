@@ -50,3 +50,7 @@
 ..\obj\app.o: Send_task.h
 ..\obj\app.o: ..\FreeRTOS\include\timers.h
 ..\obj\app.o: Check_task.h
+..\obj\app.o: lib_queue.h
+..\obj\app.o: global.h
+..\obj\app.o: Iic_slave.h
+..\obj\app.o: bsp_iic.h

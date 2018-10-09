@@ -96,6 +96,13 @@ uint LibQueue_PeekTail
 	uint *uip_Length
 );
 
+ void LibQueue_Memcpy
+(
+	uint8 *u8p_Dst,
+	const uint8 *u8p_Src,
+	uint ui_Length
+);
+
 
 #if LIB_QUEUE_TEST_ENABLE == 1
 void LibQueue_Test(void);

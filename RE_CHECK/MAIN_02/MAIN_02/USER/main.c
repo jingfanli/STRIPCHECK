@@ -13,6 +13,18 @@
 
 
 TimerHandle_t I2c_ReadCallback_Handler;
+extern TaskHandle_t StartTask_Handler;
+extern TaskHandle_t ReceiveTask_Handler;
+extern TaskHandle_t SendTask_Handler;
+extern TaskHandle_t CheckTask_Handler;
+
+extern QueueHandle_t Check_Queue;
+
+extern QueueHandle_t Send_Queue;
+
+extern QueueHandle_t Receive_Queue;
+
+
 
 
 void I2c_ReadCallback(TimerHandle_t xTimer);

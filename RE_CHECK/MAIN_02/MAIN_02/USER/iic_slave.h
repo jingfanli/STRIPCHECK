@@ -8,6 +8,9 @@
 #include "bsp_gpio.h"
 #include "lib_queue.h"
 
+#define I2C_SEND_BUFNUM    50
+#define I2C_RECIVE_BUFNUM  30
+
 
 
 void IICSLAVE_Init(void);

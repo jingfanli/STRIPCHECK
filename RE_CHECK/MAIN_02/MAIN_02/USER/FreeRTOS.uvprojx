@@ -425,6 +425,11 @@
               <FileType>1</FileType>
               <FilePath>.\iic_slave.c</FilePath>
             </File>
+            <File>
+              <FileName>lib_checksum.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\lib_checksum.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

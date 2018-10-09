@@ -8,6 +8,7 @@
 "..\obj\lib_string.o"
 "..\obj\send_task.o"
 "..\obj\iic_slave.o"
+"..\obj\lib_checksum.o"
 "..\obj\timer.o"
 "..\obj\bsp_gpio.o"
 "..\obj\bsp_adc.o"

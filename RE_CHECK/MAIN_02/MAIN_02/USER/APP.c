@@ -6,7 +6,12 @@
 #include "task.h"
 #include "queue.h"
 #include "timers.h"
+#include "lib_queue.h"
+#include "Iic_slave.h"
+#include "Check_task.h"
 
+
+uint8 I2C1_Buffer_Tx[I2C_SEND_BUFNUM];
 
 TaskHandle_t StartTask_Handler;
 TaskHandle_t ReceiveTask_Handler;
@@ -15,11 +20,22 @@ TaskHandle_t CheckTask_Handler;
 
 
 
-
-
 QueueHandle_t Check_Queue;
 QueueHandle_t Send_Queue;
 QueueHandle_t Receive_Queue;
+
+
+extern u16 Channel1_Res[48];
+extern u16 Channel2_Res[48];
+extern u16 Channel3_Res[48];
+extern u16 Channel4_Res[48];
+extern u16 Channel5_Res[48];
+extern u16 Channel6_Res[48];
+extern u16 Channel7_Res[12];
+
+
+
+
 
 
 //task1任务函数
@@ -28,14 +44,16 @@ void Receive_task(void *pvParameters)
 	uint8 Receiv_start=0;
     BaseType_t mesg_flag;
 
-	//TEST_LIB();
 	//Recevie_init();
 	while(1)
 	{
-	 mesg_flag = xQueueReceive(Check_Queue,&Receiv_start,portMAX_DELAY);
+	 mesg_flag = xQueueReceive(Receive_Queue,&Receiv_start,portMAX_DELAY);
 	   if(mesg_flag==pdTRUE)
 	   	{
-	      //Recevie_data();
+	   		if(Receiv_start==1)
+	   			{
+	   				
+	   			}
 	   	}
 	   else
 	   	{
@@ -47,12 +65,60 @@ void Receive_task(void *pvParameters)
 //task2任务函数
 void Send_task(void *pvParameters)
 {
+	uint8 err;
+	uint8 value;
+	uint16 Send_buffer[40];
+	frame_object send_frame;
 	send_init();
 
 	while(1)
 	{
+		err=xQueueReceive(Send_Queue,&value,portMAX_DELAY);
+		if(err==pdTRUE)
+			{
+				Frame_init(&send_frame);
+				
+				switch (value)
+					{
+						case 1: LibQueue_Memcpy((uint8*)Send_buffer,(uint8 *)Channel1_Res,sizeof(Channel1_Res));
+							break;
+						case 2:
+								LibQueue_Memcpy((uint8*)Send_buffer,(uint8*)Channel1_Res,sizeof(Channel1_Res));
+							break;
+						case 3: 
+								LibQueue_Memcpy((uint8*)Send_buffer,(uint8*)Channel1_Res,sizeof(Channel1_Res));
+							break;
+						case 4:
+								LibQueue_Memcpy((uint8*)Send_buffer,(uint8*)Channel1_Res,sizeof(Channel1_Res));
+							break;
+						case 5:
+								LibQueue_Memcpy((uint8*)Send_buffer,(uint8*)Channel1_Res,sizeof(Channel1_Res));
+							break;
+						case 6:
+								LibQueue_Memcpy((uint8*)Send_buffer,(uint8*)Channel1_Res,sizeof(Channel1_Res));
+							break;
+						case 7:
+								LibQueue_Memcpy((uint8*)Send_buffer,(uint8*)Channel1_Res,sizeof(Channel1_Res));
+							break;
+
+						default:
+							LibQueue_Memcpy((uint8 *)Send_buffer,(void*)0,sizeof(Channel1_Res));
+							break;
+						
+					}
+				if(Send_buffer!=NULL)
+					{
+				Frame_Pack(&send_frame,(const uint8 *)Send_buffer,value,sizeof(Send_buffer));
+
+				LibQueue_Memcpy(I2C1_Buffer_Tx,(uint8 *)&send_frame,sizeof(send_frame));
+					}
+				 
+				
+			}
+		else 
+			{
+			}
 		
-		//Send_data();
         vTaskDelay(200);                           //延时1s，也就是1000个时钟节拍	
 	}
 }
@@ -70,7 +136,7 @@ void Check_task(void *pvParameters)
 	check_state=checkalldata();
 	if(check_state!=0)
 		{
-			mesg_flag=xQueueSend(Check_Queue,&check_state,(TickType_t)0);
+			mesg_flag=xQueueSend(Send_Queue,&check_state,portMAX_DELAY);
 			if(mesg_flag!=pdTRUE)
 				{
 					//Check_Error();

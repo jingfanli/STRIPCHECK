@@ -19,12 +19,7 @@
 
 //Private function declaration
 
-static void LibQueue_Memcpy
-(
-	uint8 *u8p_Dst,
-	const uint8 *u8p_Src,
-	uint ui_Length
-);
+
 
 
 //Public function definition
@@ -606,7 +601,7 @@ void LibQueue_Test(void)
 
 //Private function definition
 
-static void LibQueue_Memcpy
+ void LibQueue_Memcpy
 (
 	uint8 *u8p_Dst,
 	const uint8 *u8p_Src,

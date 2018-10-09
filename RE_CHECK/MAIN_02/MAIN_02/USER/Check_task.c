@@ -78,15 +78,24 @@ u16 DMA1_MEM_LEN;
 static u16 RE_buffer[14]={0};
 static u8  Re_flag[7]={0};
 
-static u16 Channel1_Res[40]={0};
-static u16 Channel2_Res[40]={0};
-static u16 Channel3_Res[40]={0};
-static u16 Channel4_Res[40]={0};
-static u16 Channel5_Res[40]={0};
-static u16 Channel6_Res[40]={0};
-static u16 Channel7_Res[10]={0};
 
-u16 Channel_RECbuffer[40]={0};
+
+ u16 Channel_RECbuffer[40]={0};
+
+u16 Channel1_Res[48]={0};
+u16 Channel2_Res[48]={0};
+u16 Channel3_Res[48]={0};
+u16 Channel4_Res[48]={0};
+u16 Channel5_Res[48]={0};
+u16 Channel6_Res[48]={0};
+u16 Channel7_Res[12]={0};
+
+
+
+
+
+
+
 
 
 
@@ -228,11 +237,13 @@ u8 Check_init()
 
 u8 checkalldata()
 {
-	Check_oneunit();
+	uint8 value;
+	value=Check_REsdata();
 	
+	return value;
 }
 
-
+/*
 static u8 Check_oneunit(void)
 {
 	uint8 err;
@@ -257,7 +268,7 @@ static u8 Check_oneunit(void)
 	return FUNCTION_FAIL;
 	
 }
-
+*/
 
 void gpio_wake_test(void)	
 {
@@ -339,26 +350,16 @@ void Check_normal(void)
 static u8 Check_REsdata(void)
 {
 	uint8 value;
+
 	value=Check_5REdata();
 	if(value!=FUNCTION_OK)
 		{
 			return value;
 		}
-	//value=Check_REBASE();
-		//if(value!=FUNCTION_OK)
-		//	{
-		//		return value;
-		//	}
+
 		return FUNCTION_OK;
 }
 
-static u8 Check_PINSTAT(void)
-{
-	uint8 value;
-	
-
-	
-}
 
 static u8 Check_channelswitch(u8 channel)
 {
@@ -449,6 +450,8 @@ static u8 Check_5REdata(void)
 {
 	uint16 set_value;
 	uint8 i;
+	uint8 stat;
+	uint8 err;
 
 	for(i=0;i<8;i++)
 	{
@@ -563,6 +566,7 @@ static u8 Check_5REdata(void)
 		
 	
 		}
+	
 	
 	
 		return FUNCTION_OK;

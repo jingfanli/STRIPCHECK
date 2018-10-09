@@ -58,15 +58,19 @@ void Time_task(void * pvParameters);
 */
 
 #define Check_num         1       
-#define Send_num					5
-#define Receive_num				5
+#define Send_num					1
+#define Receive_num				1
 
 
-extern QueueHandle_t Check_Queue;
 
-extern QueueHandle_t Send_Queue;
 
-extern QueueHandle_t Receive_Queue;
+
+
+
+
+
+
+
 
 
 

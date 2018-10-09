@@ -1,5 +1,15 @@
 #include "Iic_slave.h"
 #include "stm32f10x_i2c.h"
+#include "lib_checksum.h"
+#include "app.h"
+
+
+extern QueueHandle_t Check_Queue;
+
+extern QueueHandle_t Send_Queue;
+
+extern QueueHandle_t Receive_Queue;
+
 
 
 
@@ -16,17 +26,26 @@
 
 
 
-#define I2C_SEND_BUFNUM    30
-#define I2C_RECIVE_BUFNUM  30
+
 
 
 
 static u8 Start_flag;
 static u8 Stop_flag;
-static 	uint8 Tx_Idx;
-static  uint8  Rx_Idx;
+u8 Send_control;
 
-static uint8 I2C1_Buffer_Tx[I2C_SEND_BUFNUM];
+static 	uint8 Frame_count=0;
+static uint8 LEN=0;
+
+static uint8 Tx_Idx=0;
+
+static uint8 Re_count=0;
+
+static uint8 Checksum8;
+
+
+
+extern uint8 I2C1_Buffer_Tx[I2C_SEND_BUFNUM];
 
 static uint8 I2C1_Buffer_Rx[I2C_RECIVE_BUFNUM];
 
@@ -51,9 +70,11 @@ void IICSLAVE_Init(void)
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_OD;	
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_Init(GPIOB, &GPIO_InitStructure);
-
-
 	
+	Frame_count=0;
+	Re_count=0;
+	Checksum8=0;
+
 	I2C_Mode_Configu();	
 }
 
@@ -87,7 +108,7 @@ static void I2C_Mode_Configu(void)
   I2C_Init(I2C2, &I2C_InitStructure);
   
 	/* 使能 I2C */
-  I2C_Cmd(I2C2, ENABLE); 
+    I2C_Cmd(I2C2, ENABLE); 
 	I2C_ITConfig(I2C2,I2C_IT_EVT,ENABLE);
 	I2C_ITConfig(I2C2,I2C_IT_ERR,ENABLE);
 	
@@ -116,8 +137,12 @@ void I2C2_interrupt(void)
 //事件中断处理函数 
  
 { 
+
+   uint8 I2C_DATA=0;
+	 BaseType_t  xHigherPriorityTaskWoken;
+	 uint8  err=0;
  
- switch (I2C_GetLastEvent(I2C2))
+ switch (I2C_GetLastEvent(I2C1))
  
  //获取i2c1的中断事件 
  
@@ -129,7 +154,7 @@ void I2C2_interrupt(void)
  
   /* 这个和下面那个都是从发送模式下发送数据的，具体两个的区别我也不是很明白，感觉就是移位寄存器空与非  空的区别,准备好数据发送吧 */ 
  
-  I2C_SendData(I2C2, I2C1_Buffer_Tx[Tx_Idx++]);
+  I2C_SendData(I2C1, I2C1_Buffer_Tx[Tx_Idx++]);
  
    break; 
  
@@ -137,7 +162,7 @@ void I2C2_interrupt(void)
  
   /* Transmit I2C1 data */
  
-  I2C_SendData(I2C2, I2C1_Buffer_Tx[Tx_Idx++]); 
+  I2C_SendData(I2C1, I2C1_Buffer_Tx[Tx_Idx++]); 
  
    break; 
  
@@ -150,16 +175,145 @@ void I2C2_interrupt(void)
   break; 
  
  case I2C_EVENT_SLAVE_BYTE_RECEIVED:                /* EV2 */ 
+/* Store I2C1 received data */ 
+
+/* 这个中断就是响应EV2中断，如下图244，每次主机发送完一个数据就会产生一个EV2的中断 */ 
  
-  /* Store I2C1 received data */ 
+  
+  
+ err=0;
  
-  /* 这个中断就是响应EV2中断，如下图244，每次主机发送完一个数据就会产生一个EV2的中断 */ 
+ I2C_DATA = I2C_ReceiveData(I2C1);
+
+  if(Frame_count==0)
+  	{
+  		if(I2C_DATA==0x68)
+  			{
+  				Frame_count++;
+  			}
+		else
+			{
+				I2C_Cmd(I2C2, ENABLE); 
+			}
+  	}
+	switch(Frame_count)
+		{
+			case 1:
+					if(I2C_DATA==0x68)
+						{
+							Frame_count++;
+						}
+					else
+						{
+						I2C_Cmd(I2C2, ENABLE);
+						Frame_count=0;
+						LEN=0;
+						
+						}
+					break;
+			case 2:
+				Frame_count++;
+				break;
+			case 3:
+				Frame_count++;
+				break;
+			case 4:
+					if(I2C_DATA==0x68)
+						{
+							Frame_count++;
+						}
+					else
+						{
+						I2C_Cmd(I2C2, ENABLE);
+						Frame_count=0;
+						LEN=0;
+						
+						}
+				break;
+			case 5:
+				Send_control=I2C_DATA;
+				Frame_count++;
+				break;
+			case 6:
+				LEN=I2C_DATA;
+				Frame_count++;
+				break;
+			case 7:
+					if(I2C_DATA==0x52)
+						{
+							Frame_count++;
+						}
+					else
+						{
+						I2C_Cmd(I2C2, ENABLE);
+						Frame_count=0;
+						LEN=0;
+						
+						}
+				break;
+			case 8:
+					if(I2C_DATA==0x14)
+						{
+							Frame_count++;
+						}
+					else
+						{
+						I2C_Cmd(I2C2, ENABLE);
+						Frame_count=0;
+						LEN=0;
+						
+						}
+				break;
+
+
+			default:
+				if(Frame_count+6==LEN)
+					{
+										if((Re_count+2)!=LEN)
+						{
+						I2C_Cmd(I2C2, ENABLE);
+						Frame_count=0;
+						LEN=0;	
+						}
+					else
+						{
+							Checksum8=LibChecksum_GetChecksum16Bit(I2C1_Buffer_Rx,Re_count);
+							if(Checksum8==I2C_DATA)
+								{
+							Frame_count++;
+								}
+							else
+								{
+						  I2C_Cmd(I2C2, ENABLE);
+						  Frame_count=0;
+						  LEN=0;	
+								}
+						}
+					}
+				else if(Frame_count+7==LEN)
+					{
+						if(I2C_DATA==0x16)
+						{
+						err=1;
+						xQueueSendFromISR(Receive_Queue,&err,&xHigherPriorityTaskWoken);
+						}
+						I2C_Cmd(I2C2, ENABLE);
+						Checksum8=0;
+						Frame_count=0;
+						LEN=0;
+						portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+					}
+				else{
+				
+				I2C1_Buffer_Rx[Re_count]=I2C_DATA;
+				Re_count++;
+					}
+				break;
+		}
+
+  
  
-  I2C1_Buffer_Rx[Rx_Idx++] = I2C_ReceiveData(I2C1);
- 
-  /* 把接收到的中断填充到数组中 */ 
- 
-  /* 注意：地址不会填充进来的 */
+
  
    break; 
  
@@ -170,12 +324,12 @@ void I2C2_interrupt(void)
   /* 这个就是正常停止的时候产生的一个停止信号 */ 
  
   I2C_Cmd(I2C2, ENABLE); 
+  Checksum8=0;
+  Frame_count=0;
+  LEN=0;
+
  
-  /* 我也不清楚这个为什么要这样，如果接收完一串数据之后，不响应主机的情况可以 关闭i2c，然后在处理完数据后再  从新配置i2c，记得是从新配置 */ 
- 
-  Rx_Idx=0; 
- 
- // i2c_event = EVENT_OPCOD_NOTYET_READ; 
+
  
   break; 
  

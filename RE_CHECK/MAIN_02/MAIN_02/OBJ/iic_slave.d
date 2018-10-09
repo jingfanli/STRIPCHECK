@@ -50,3 +50,5 @@
 ..\obj\iic_slave.o: type.h
 ..\obj\iic_slave.o: lib_queue.h
 ..\obj\iic_slave.o: global.h
+..\obj\iic_slave.o: lib_checksum.h
+..\obj\iic_slave.o: app.h

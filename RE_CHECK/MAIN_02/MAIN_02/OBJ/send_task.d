@@ -51,3 +51,4 @@
 ..\obj\send_task.o: ..\FreeRTOS\include\list.h
 ..\obj\send_task.o: ..\FreeRTOS\include\queue.h
 ..\obj\send_task.o: ..\FreeRTOS\include\timers.h
+..\obj\send_task.o: lib_checksum.h

@@ -43,5 +43,9 @@ u8 Adcvalue_INORDER(u8 num,u8 res_pos);
 void gpio_wake_test(void);
 void Check_Error(void);
 
+
+
+
+
 #endif
 
